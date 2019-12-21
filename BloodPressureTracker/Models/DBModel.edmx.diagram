@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="123a491e802048838a18dc0ce3b85207" Name="Diagram1">
+        <EntityTypeShape EntityType="BloodPressureTrackerModel.diet" Width="1.5" PointX="1" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BloodPressureTrackerModel.user" Width="1.5" PointX="1" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BloodPressureTrackerModel.bloodPressure" Width="1.5" PointX="3.625" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="BloodPressureTrackerModel.FK_bloodPressure_diet" ManuallyRouted="false" />
+        <AssociationConnector Association="BloodPressureTrackerModel.FK_bloodPressure_user" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

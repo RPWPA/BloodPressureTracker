@@ -1,0 +1,152 @@
+﻿@model  BloodPressureTracker.Models.user
+
+@{
+    Layout = null;
+    if (Session["UserID"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User | Update Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link href="~/Content/userHome/img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/animate.css" />
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/style.css" />
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <div class="main-warp">
+        <!-- header section -->
+        <header class="header-section">
+            <div class="header-close">
+                <i class="fa fa-times"></i>
+            </div>
+            <div class="header-warp">
+                <a href="" class="site-logo">
+                    <img src="~/Content/userHome/img/l2.jpg" alt="">
+                </a>
+                <ul class="main-menu">
+                    <li><a href="@Url.Action("userHome","User")">Measure Blood Pressure</a></li>
+                    <li><a href="@Url.Action("dietPlan","User")">Diet Plan</a></li>
+                    <li><a href="@Url.Action("graph","User",new { id = Session["UserID"] })">History Graph</a></li>
+                    <li><a href="@Url.Action("viewProfile","User")">View Profile</a></li>
+                    <li class="active"><a href="">Edit Profile</a></li>
+                    <li><a href="@Url.Action("LogOut","Home")">SIGN OUT</a></li>
+                </ul>
+            </div>
+        </header>
+        <!-- header section end -->
+        <!-- Page section -->
+        <!-- Page section -->
+        <div class="page-section contact-page">
+            <div class="contact-warp">
+                <div class="row">
+                    <div class="col-xl-6 p-0">
+                        <div class="contact-text">
+                            <h4>Update Profile</h4>
+                            @using (Html.BeginForm("UpdateUser", "User", FormMethod.Post))
+                            {
+                                <table class="">
+                                    <tr>
+                                        <td colspan="2"><label><strong>Email</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-input">@Html.EditorFor(model => model.email)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            @Html.ValidationMessageFor(model => model.email)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label><strong>Age</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-input">@Html.EditorFor(model => model.age)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            @Html.ValidationMessageFor(model => model.age)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label><strong>weight</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-input">@Html.EditorFor(model => model.weight)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            @Html.ValidationMessageFor(model => model.weight)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label><strong>Gender</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-input">@Html.EditorFor(model => model.gender)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            @Html.ValidationMessageFor(model => model.gender)
+                                        </td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr></tr>
+                                    <tr></tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label>@Html.DisplayFor(model => model.LoginErrorMsg) </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input class="site-btn" type="submit" value="Update" />
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page section end-->
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/Content/userHome/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/userHome/js/bootstrap.min.js"></script>
+    <script src="~/Content/userHome/js/owl.carousel.min.js"></script>
+    <script src="~/Content/userHome/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/userHome/js/isotope.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/circle-progress.min.js"></script>
+    <script src="~/Content/userHome/js/main.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>

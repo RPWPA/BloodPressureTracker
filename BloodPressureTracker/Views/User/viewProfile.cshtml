@@ -1,0 +1,118 @@
+﻿@model  BloodPressureTracker.Models.user
+
+@{
+    Layout = null;
+    if (Session["UserID"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User | Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link href="~/Content/userHome/img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/animate.css" />
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/style.css" />
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <div class="main-warp">
+        <!-- header section -->
+        <header class="header-section">
+            <div class="header-close">
+                <i class="fa fa-times"></i>
+            </div>
+            <div class="header-warp">
+                <a href="" class="site-logo">
+                    <img src="~/Content/userHome/img/l2.jpg" alt="">
+                </a>
+                <ul class="main-menu">
+                    <li><a href="@Url.Action("userHome","User")">Measure Blood Pressure</a></li>
+                    <li><a href="@Url.Action("dietPlan","User")">Diet Plan</a></li>
+                    <li><a href="@Url.Action("graph","User",new { id = Session["UserID"] })">History Graph</a></li>
+                    <li class="active"><a href="">View Profile</a></li>
+                    <li><a href="@Url.Action("UpdateProfile","User")">Edit Profile</a></li>
+                    <li><a href="@Url.Action("LogOut","Home")">SIGN OUT</a></li>
+                </ul>
+            </div>
+        </header>
+        <!-- header section end -->
+        <!-- Page section -->
+        <!-- Page section -->
+        <div class="page-section contact-page">
+            <div class="contact-warp">
+                <div class="row">
+                    <div class="col-xl-6 p-0">
+                        <div class="contact-text">
+                            <h4>Your Profile</h4>
+                            <table class="">
+                                <tr>
+                                    <td> <label>User Name:   </label></td>
+                                    <td> <label><strong>@Model.name</strong> </label> </td>
+                                </tr>
+
+                                <tr>
+                                    <td><label>E-mail:      </label></td>
+                                    <td><label>@Model.email</label> </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Age:         </label>       </td>
+                                    <td><label>@Model.age Years Old</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Weight:      </label>   </td>
+                                    <td><label>@Model.weight Kg</label></td>
+                                </tr>
+                                <tr>
+                                    <td> <label>Gender:      </label> </td>
+                                    @{
+                                        if (Model.gender[0] == 'f')
+                                        {
+                                            <td> <label>Female</label> </td>
+                                        }
+                                        if (Model.gender[0] == 'm')
+                                        {
+                                             <td> <label>Male</label> </td>
+                                        }
+                                    }
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page section end-->
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/Content/userHome/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/userHome/js/bootstrap.min.js"></script>
+    <script src="~/Content/userHome/js/owl.carousel.min.js"></script>
+    <script src="~/Content/userHome/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/userHome/js/isotope.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/circle-progress.min.js"></script>
+    <script src="~/Content/userHome/js/main.js"></script>
+
+</body>
+</html>

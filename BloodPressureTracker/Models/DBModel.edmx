@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BloodPressureTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BloodPressureTracker.dbo.bloodPressure' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="bloodPressure">
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="dietId" />
+            <PropertyRef Name="pressureSample" />
+            <PropertyRef Name="dateTime" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="dietId" Type="int" Nullable="false" />
+          <Property Name="pressureSample" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="dateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="diet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Meals" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="weight" Type="int" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="gender" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_bloodPressure_diet">
+          <End Role="diet" Type="Self.diet" Multiplicity="1" />
+          <End Role="bloodPressure" Type="Self.bloodPressure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="diet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bloodPressure">
+              <PropertyRef Name="dietId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bloodPressure_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="bloodPressure" Type="Self.bloodPressure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bloodPressure">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BloodPressureTrackerModelStoreContainer">
+          <EntitySet Name="diet" EntityType="Self.diet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bloodPressure" EntityType="Self.bloodPressure" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [bloodPressure].[userId] AS [userId], 
+    [bloodPressure].[dietId] AS [dietId], 
+    [bloodPressure].[pressureSample] AS [pressureSample], 
+    [bloodPressure].[dateTime] AS [dateTime]
+    FROM [dbo].[bloodPressure] AS [bloodPressure]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_bloodPressure_diet" Association="Self.FK_bloodPressure_diet">
+            <End Role="diet" EntitySet="diet" />
+            <End Role="bloodPressure" EntitySet="bloodPressure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bloodPressure_user" Association="Self.FK_bloodPressure_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="bloodPressure" EntitySet="bloodPressure" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BloodPressureTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="diet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Meals" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="bloodPressures" Relationship="Self.FK_bloodPressure_diet" FromRole="diet" ToRole="bloodPressure" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="weight" Type="Int32" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="bloodPressures" Relationship="Self.FK_bloodPressure_user" FromRole="user" ToRole="bloodPressure" />
+          <Property Name="email" Type="String" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bloodPressure">
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="dietId" />
+            <PropertyRef Name="pressureSample" />
+            <PropertyRef Name="dateTime" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="dietId" Type="Int32" Nullable="false" />
+          <Property Name="pressureSample" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="diet" Relationship="Self.FK_bloodPressure_diet" FromRole="bloodPressure" ToRole="diet" />
+          <NavigationProperty Name="user" Relationship="Self.FK_bloodPressure_user" FromRole="bloodPressure" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_bloodPressure_diet">
+          <End Role="diet" Type="Self.diet" Multiplicity="1" />
+          <End Role="bloodPressure" Type="Self.bloodPressure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="diet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bloodPressure">
+              <PropertyRef Name="dietId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bloodPressure_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="bloodPressure" Type="Self.bloodPressure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bloodPressure">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModels" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="diets" EntityType="Self.diet" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="bloodPressures" EntityType="Self.bloodPressure" />
+          <AssociationSet Name="FK_bloodPressure_diet" Association="Self.FK_bloodPressure_diet">
+            <End Role="diet" EntitySet="diets" />
+            <End Role="bloodPressure" EntitySet="bloodPressures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bloodPressure_user" Association="Self.FK_bloodPressure_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="bloodPressure" EntitySet="bloodPressures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BloodPressureTrackerModelStoreContainer" CdmEntityContainer="DBModels">
+          <EntitySetMapping Name="diets">
+            <EntityTypeMapping TypeName="BloodPressureTrackerModel.diet">
+              <MappingFragment StoreEntitySet="diet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Meals" ColumnName="Meals" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="BloodPressureTrackerModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bloodPressures">
+            <EntityTypeMapping TypeName="BloodPressureTrackerModel.bloodPressure">
+              <MappingFragment StoreEntitySet="bloodPressure">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="dietId" ColumnName="dietId" />
+                <ScalarProperty Name="pressureSample" ColumnName="pressureSample" />
+                <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

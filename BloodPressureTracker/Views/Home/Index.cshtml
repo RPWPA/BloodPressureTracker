@@ -1,0 +1,89 @@
+﻿@model  BloodPressureTracker.Models.user
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/Content/style1.css">
+    <title>Blood Pressure Tracker | Home</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="left">
+            <div id="signin">
+                <div class="logo">
+                    <img src="~/Content/imgs/l2.jpg" alt="logo">
+                </div>
+
+                <div>
+                    @using (Html.BeginForm("Authorize", "Home", FormMethod.Post))
+                    {
+                        <table>
+                            <tr>
+                                <td colspan="2"><label><strong>User Name</strong></label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-input">@Html.EditorFor(model => model.name)</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    @Html.ValidationMessageFor(model => model.name)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><label><strong>Password</strong></label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-input">@Html.EditorFor(model => model.password)</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    @Html.ValidationMessageFor(model => model.password)
+                                </td>
+                            </tr>
+                            <tr><td>@Session["UserID"]</td></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label>@Html.DisplayFor(model => model.LoginErrorMsg) </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="primary-btn text-11" type="submit" value="Sign In" />
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+
+                <div class="or">
+                    <hr class="bar">
+                    <span>OR</span>
+                    <hr class="bar">
+                </div>
+                <input style="display: block; padding: 0.7rem 1rem; height: 2.7rem; border: 1px solid darkorange; border-radius: 2px; font-weight: 500; background: none; color: darkorange; text-decoration: none; cursor: pointer; text-align: center; transition: all 0.5s;" type="button" value="Create New Account" onclick="@("window.location.href='" + @Url.Content("~/User/register") + "'");" />
+                <br />
+                @Html.ActionLink("Sign In with Gmail", "RedirectToGoogle", "Home", null,
+                new { @style = "display: block; padding: 0.7rem 1rem; height: 2.7rem; border: 1px solid red; border-radius: 2px; font-weight: 500; background: red; color: white; text-decoration: none; cursor: pointer; text-align: center; transition: all 0.5s; margin-bottom: 8px;" })
+
+            </div>
+        </div>
+        <div id="right">
+            <div id="showcase">
+                <div class="showcase-content">
+                    <h1 class="showcase-text">
+                        Let's have a healthy <strong>Future</strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

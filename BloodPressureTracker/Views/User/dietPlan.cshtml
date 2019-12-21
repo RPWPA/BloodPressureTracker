@@ -1,0 +1,120 @@
+﻿@model  BloodPressureTracker.Models.diet
+
+@{
+    Layout = null;
+    if (Session["UserID"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User | Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link href="~/Content/userHome/img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/animate.css" />
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/style.css" />
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <div class="main-warp">
+        <!-- header section -->
+        <header class="header-section">
+            <div class="header-close">
+                <i class="fa fa-times"></i>
+            </div>
+            <div class="header-warp">
+                <a href="" class="site-logo">
+                    <img src="~/Content/userHome/img/l2.jpg" alt="">
+                </a>
+                <ul class="main-menu">
+                    <li><a href="@Url.Action("userHome","User")">Measure Blood Pressure</a></li>
+                    <li class="active"><a href="">Diet Plan</a></li>
+                    <li><a href="@Url.Action("graph","User",new { id = Session["UserID"] })">History Graph</a></li>
+                    <li><a href="@Url.Action("viewProfile","User")">View Profile</a></li>
+                    <li><a href="@Url.Action("UpdateProfile","User")">Edit Profile</a></li>
+                    <li><a href="@Url.Action("LogOut","Home")">SIGN OUT</a></li>
+                </ul>
+            </div>
+        </header>
+        <!-- header section end -->
+        <!-- Page section -->
+        <!-- Page section -->
+        <div class="page-section blog-page">
+            <div class="blog-warp">
+                <div class="blog-track">
+                    <div class="blog-post">
+                            <div class="post-date">
+                                <span>@DateTime.Now.Month, @DateTime.Now.Year</span>
+                            </div>
+                            <h2 class="post-title">Recommended Diet</h2>
+                        <div class="post-metas">
+                            <div class="post-meta">Please Follow This Diet</div>
+                        </div>
+                        @{ 
+                            if(Model.Meals == "heavy")
+                            {
+                                <h4>Add a serving of vegetables at lunch and at dinner.</h4>
+                                <h4>Add a serving of fruit to your meals or as a snack.Canned and dried fruits are easy to use, but check that they don't have added sugar.</h4>
+                                <h4>Use only half your typical serving of butter, margarine, or salad dressing, and use low-fat or fat-free condiments.                    </h4>
+                                <h4>Drink low-fat or skim dairy products any time you would normally use full - fat or cream.                                              </h4>
+                                <h4>Limit meat to 6 ounces a day.Make some meals vegetarian.                                                                               </h4>
+                                <h4>Add more vegetables and dry beans to your diet.                                                                                        </h4>
+                                <h4>Instead of snacking on chips or sweets, eat unsalted pretzels or nuts, raisins, low - fat and fat-free yogurt, frozen yogurt, unsalted plain popcorn with no butter, and raw vegetables.</h4>
+                                <h4>Read food labels to choose products that are lower in sodium.</h4>
+                            }
+                            else if(Model.Meals == "light")
+                            {
+                                <h4>Drink more water, less alcohol. Alcohol is dehydrating and can lower blood pressure, even if you drink in moderation. Water, on the other hand, combats dehydration and increases blood volume.                                      </h4>
+                                <h4>Eat a healthy diet. Get all the nutrients you need for good health by focusing on a variety of foods, including whole grains, fruits, vegetables, and lean chicken and fish.                                                         </h4>
+                                <h4>If your doctor suggests using more salt but you don't like a lot of salt on your food, try using natural soy sauce or adding dry soup mixes to dips and dressings.                                                                   </h4>
+                                <h4>Eat small, low-carb meals. To help prevent blood pressure from dropping sharply after meals, eat small portions several times a day and limit high-carbohydrate foods such as potatoes, rice, pasta and bread.                       </h4>
+                                <h4>Your doctor also might recommend drinking caffeinated coffee or tea with meals to temporarily raise blood pressure. But because caffeine can cause other problems, check with your doctor before drinking more caffeinated beverages.</h4>
+                            }
+                            else
+                            {
+                                <h4>A balanced diet is one that gives your body the nutrients it needs to function correctly. To get the proper nutrition from your diet, you should consume the majority of your daily calories in:</h4>
+                                <h4>fresh fruits    </h4>
+                                <h4>fresh vegetables</h4>
+                                <h4>whole grains    </h4>
+                                <h4>legumes         </h4>
+                                <h4>nuts            </h4>
+                                <h4>lean proteins   </h4>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page section end-->
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/Content/userHome/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/userHome/js/bootstrap.min.js"></script>
+    <script src="~/Content/userHome/js/owl.carousel.min.js"></script>
+    <script src="~/Content/userHome/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/userHome/js/isotope.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/circle-progress.min.js"></script>
+    <script src="~/Content/userHome/js/main.js"></script>
+
+</body>
+</html>

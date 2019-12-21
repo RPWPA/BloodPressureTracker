@@ -1,0 +1,187 @@
+﻿@using BloodPressureTracker.Models
+@model bloodPressure
+
+@{
+    Layout = null;
+    if (Session["UserID"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User | Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link href="~/Content/userHome/img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/Content/userHome/css/animate.css" />
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="~/Content/userHome/css/style.css" />
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <div class="main-warp">
+        <!-- header section -->
+        <header class="header-section">
+            <div class="header-close">
+                <i class="fa fa-times"></i>
+            </div>
+            <div class="header-warp">
+                <a href="" class="site-logo">
+                    <img src="~/Content/userHome/img/l2.jpg" alt="">
+                </a>
+                <ul class="main-menu">
+                    <li class="active"><a href="">Measure Blood Pressure</a></li>
+                    <li><a href="@Url.Action("dietPlan","User")">Diet Plan</a></li>
+                    <li><a href="@Url.Action("graph","User",new { id = Session["UserID"] })">History Graph</a></li>
+                    <li><a href="@Url.Action("viewProfile","User")">View Profile</a></li>
+                    <li><a href="@Url.Action("updateProfile","User")">Edit Profile</a></li>
+                    <li><a href="@Url.Action("LogOut","Home")">SIGN OUT</a></li>
+                </ul>
+            </div>
+        </header>
+        <!-- header section end -->
+        <!-- Page section -->
+        <!-- Page section -->
+        <div class="page-section contact-page">
+            <div class="contact-warp">
+                <div class="row">
+                    <div class="col-xl-6 p-0">
+                        <div class="contact-text">
+                            <h4>Enter your Blood Pressure</h4>
+                            @using (Html.BeginForm("EnterSample", "User", FormMethod.Post))
+                            {
+                                <table>
+                                    <tr>
+                                        <td class="text-input">@Html.EditorFor(model => model.pressureSample)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><p>ex: 120/80</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.ValidationMessageFor(model => model.pressureSample)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="site-btn" type="submit" value="Enter" /></td>
+                                    </tr>
+                                </table>
+                            }
+                            <br />
+                            <br />
+                            @using (Html.BeginForm("Remind", "User", FormMethod.Post))
+                            {
+                                <table>
+                                    <tr>
+                                        <td>@Html.DropDownList("RemindOptions", new SelectList(Enum.GetValues(typeof(Reminder))), "RemindOptions")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.Label("Email"):
+                                            @Html.CheckBox("emailOption")
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="clickMe" class="site-btn" type="submit" value="Remind" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Reminder:
+                                            <p id="demo"></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page section end-->
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/Content/userHome/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/userHome/js/bootstrap.min.js"></script>
+    <script src="~/Content/userHome/js/owl.carousel.min.js"></script>
+    <script src="~/Content/userHome/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/userHome/js/isotope.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Content/userHome/js/circle-progress.min.js"></script>
+    <script src="~/Content/userHome/js/main.js"></script>
+    <script src="~/Content/moment.js"></script>
+    <script>
+        // Set the date we're counting down to
+        //var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+        var x = @Model.RemainTime;
+        var countDownDate = new Date().getTime();
+
+        if (x == 1) {
+            var newDate = moment(countDownDate).add(1, 'm').toDate();
+            countDownDate = newDate;
+        }
+        else if (x == 11){
+            var newDate = moment(countDownDate).add(1, 'h').toDate();
+            countDownDate = newDate;
+        }
+        else if (x == 2){
+            var newDate = moment(countDownDate).add(2, 'h').toDate();
+            countDownDate = newDate;
+        }
+        else if (x == 3){
+            var newDate = moment(countDownDate).add(3, 'h').toDate();
+            countDownDate = newDate;
+        }
+
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "set a Reminder";
+            }
+        }, 1000);
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿@model  BloodPressureTracker.Models.user
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/Content/style1.css">
+    <title>User | Register</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="left">
+            <div id="signin">
+                <div class="logo">
+                    <img src="~/Content/imgs/l2.jpg" alt="logo">
+                </div>
+
+                <div>
+                    @using (Html.BeginForm("Rauthorize", "User", FormMethod.Post))
+                    {
+                    <table>
+                        <tr>
+                            <td colspan="2"><label><strong>User Name</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-input">@Html.EditorFor(model => model.name)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationMessageFor(model => model.name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><strong>Password</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-input">@Html.EditorFor(model => model.password)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationMessageFor(model => model.password)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><strong>Email</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-input">@Html.EditorFor(model => model.email)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationMessageFor(model => model.email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><strong>Age</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-input">@Html.EditorFor(model => model.age)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationMessageFor(model => model.age)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><strong>weight</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-input">@Html.EditorFor(model => model.weight)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationMessageFor(model => model.weight)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><strong>Gender</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-input">@Html.EditorFor(model => model.gender)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationMessageFor(model => model.gender)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><strong>Blood Pressure</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-input">@Html.EditorFor(model => model.BPsample)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationMessageFor(model => model.BPsample)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Session["UserID"]</td>
+                        </tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr>
+                            <td colspan="2">
+                                <label>@Html.DisplayFor(model => model.LoginErrorMsg) </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input class="primary-btn text-11" type="submit" value="Submit" />
+                            </td>
+                        </tr>
+                    </table>
+                    }
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="showcase">
+                <div class="showcase-content">
+                    <h1 class="showcase-text">
+                        Let's have a healthy <strong>Future</strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
